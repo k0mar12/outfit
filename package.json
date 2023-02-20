@@ -1,11 +1,12 @@
 {
-  "name": "@nuxtjs/outfit",
-  "version": "1.0.1",
+  "name": "nuxt-outfit",
+  "version": "1.0.2",
   "description": "Outfit - Connection Laravel and Nuxt",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/k0mar12/outfit"
   },
+  "homepage": "https://github.com/k0mar12/outfit",
   "author": "Vlad Poshvaniuk",
   "contributors": [
     "k0mar12 <vladlovedance@gmail.com>"

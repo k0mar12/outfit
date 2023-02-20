@@ -25,6 +25,8 @@ export default defineNuxtModule({
     nuxt.options.runtimeConfig.public.outfit = { echo: options.echo, httpInstance: options.httpInstance }
     nuxt.options.runtimeConfig.outfit = { serverUrl: options.serverUrl }
 
+    nuxt.options.build.transpile.push('laravel-echo', 'socket.io-client')
+
     addPlugin(resolve('./runtime/plugins/echo.client'))
   }
 })

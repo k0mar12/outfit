@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.0.7
+
+
+### 🩹 Fixes
+
+  - Dependencies for spa headers (72d5ca2)
+
+### ❤️  Contributors
+
+- Vlad Poshvaniuk <vladposhvaniuk@Vlads-MacBook-Pro.local>
+
 ## v1.0.6
 
 

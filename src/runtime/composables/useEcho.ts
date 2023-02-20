@@ -1,3 +1,5 @@
+import { useNuxtApp } from '#imports'
+
 export const useEcho = () => {
   const { $echo } = useNuxtApp()
   const notificationNamespace = '.Illuminate\\Notifications\\Events\\BroadcastNotificationCreated'

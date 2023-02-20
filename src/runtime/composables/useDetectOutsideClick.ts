@@ -1,3 +1,5 @@
+import { onMounted, onBeforeUnmount } from 'vue'
+
 export const useDetectOutsideClick = (component, callback) => {
   if (!component) {
     return

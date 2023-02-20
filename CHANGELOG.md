@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.0.12
+
+
+### 🩹 Fixes
+
+  - Trying transpile (11cf827)
+
+### ❤️  Contributors
+
+- Vlad Poshvaniuk <vladposhvaniuk@Vlads-MacBook-Pro.local>
+
 ## v1.0.11
 
 

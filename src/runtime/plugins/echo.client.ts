@@ -5,8 +5,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const options = useRuntimeConfig().public.outfit.echo
 
   if (options.broadcaster === 'socket.io') {
-    const { io } = await import('socket.io-client')
-    options.client = io
+    options.client = await import('socket.io-client')
   }
 
   nuxtApp.provide('echo', new Echo(options))

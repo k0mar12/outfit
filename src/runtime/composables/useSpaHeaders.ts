@@ -1,6 +1,5 @@
 import { useRuntimeConfig, useRequestEvent, useRequestHeaders } from '#imports'
 import { appendHeader } from 'h3'
-import { parse, splitCookiesString as split } from 'set-cookie-parser'
 import { serialize } from 'cookie'
 
 export const useSpaHeaders = (additionalHeaders = {}) => {
@@ -23,7 +22,9 @@ export const useSpaHeaders = (additionalHeaders = {}) => {
     headers.referer = `${headers.host}/${event.node.req.originalUrl}`
   }
 
-  const parseCookie = (cookies) => {
+  const parseCookie = async (cookies) => {
+    const { parse, splitCookiesString: split } = await import('set-cookie-parser')
+
     return (parse(split(cookies))).map(cookie => serialize(cookie.name, cookie.value, cookie))
   }
 
@@ -32,12 +33,13 @@ export const useSpaHeaders = (additionalHeaders = {}) => {
       ...additionalHeaders,
       ...headers
     },
-    // eslint-disable-next-line
     async onResponse ({ response }) {
       const { status, headers } = response
 
       if (goodResponses.includes(status)) {
-        appendHeader(event, 'Set-Cookie', parseCookie(headers.get('set-cookie')))
+        const incomingHeaders = await parseCookie(headers.get('set-cookie'))
+
+        appendHeader(event, 'Set-Cookie', incomingHeaders)
       }
     }
   }

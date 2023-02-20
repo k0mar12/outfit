@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.0.8
+
+
+### 🩹 Fixes
+
+  - Importing dependencies for parsing cookie (e87af7d)
+
+### ❤️  Contributors
+
+- Vlad Poshvaniuk <vladposhvaniuk@Vlads-MacBook-Pro.local>
+
 ## v1.0.7
 
 

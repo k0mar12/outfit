@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.0.10
+
+
+### 🩹 Fixes
+
+  - Importing io (6152634)
+
+### ❤️  Contributors
+
+- Vlad Poshvaniuk <vladposhvaniuk@Vlads-MacBook-Pro.local>
+
 ## v1.0.9
 
 

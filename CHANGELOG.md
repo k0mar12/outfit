@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.0.9
+
+
+### 🩹 Fixes
+
+  - Importing dependency for validating form (25cf32b)
+
+### ❤️  Contributors
+
+- Vlad Poshvaniuk <vladposhvaniuk@Vlads-MacBook-Pro.local>
+
 ## v1.0.8
 
 

@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.0.6
+
+
+### 🩹 Fixes
+
+  - Importing client socket (50d9f0d)
+
+### ❤️  Contributors
+
+- Vlad Poshvaniuk <vladposhvaniuk@Vlads-MacBook-Pro.local>
+
 ## v1.0.5
 
 

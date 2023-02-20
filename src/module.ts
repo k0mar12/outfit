@@ -1,6 +1,6 @@
-import { defineNuxtModule, addPlugin, createResolver } from '@nuxt/kit'
-
-const { resolve } = createResolver(import.meta.url)
+import { defineNuxtModule, addPlugin, addImportsDir } from '@nuxt/kit'
+import { fileURLToPath } from 'url'
+import { resolve } from 'path'
 
 export default defineNuxtModule({
   meta: {
@@ -16,17 +16,16 @@ export default defineNuxtModule({
     serverUrl: null,
     httpInstance: null
   },
-  hooks: {
-    'imports:dirs': (dirs) => {
-      dirs.push(resolve('./runtime/composables'))
-    }
-  },
   setup (options, nuxt) {
+    const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
+
+    nuxt.options.build.transpile.push(runtimeDir)
     nuxt.options.runtimeConfig.public.outfit = { echo: options.echo, httpInstance: options.httpInstance }
     nuxt.options.runtimeConfig.outfit = { serverUrl: options.serverUrl }
 
-    nuxt.options.build.transpile.push('laravel-echo', 'socket.io-client')
+    nuxt.options.build.transpile.push('socket.io-client')
 
-    addPlugin(resolve('./runtime/plugins/echo.client'))
+    addPlugin(resolve(runtimeDir, 'plugins'))
+    addImportsDir(resolve(runtimeDir, 'composables'))
   }
 })

@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.0.11
+
+
+### 🏡 Chore
+
+  - Testing import (54b9891)
+
+### ❤️  Contributors
+
+- Vlad Poshvaniuk <vladposhvaniuk@Vlads-MacBook-Pro.local>
+
 ## v1.0.10
 
 

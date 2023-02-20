@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.0.5
+
+
+### 🩹 Fixes
+
+  - Add build config and remove deprecated key (8f700b3)
+
+### ❤️  Contributors
+
+- Vlad Poshvaniuk <vladposhvaniuk@Vlads-MacBook-Pro.local>
+
 ## v1.0.4
 
 

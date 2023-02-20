@@ -1,7 +1,6 @@
 import { ref, reactive } from 'vue'
 import { useRuntimeConfig, useNuxtApp, useState } from '#imports'
 import { klona as deepClone } from 'klona/full'
-import { unflatten } from 'flat'
 import { has, unset } from 'lodash-es'
 
 export const useForm = (opts = {}) => {
@@ -122,7 +121,9 @@ export const useForm = (opts = {}) => {
    * @param isRunCallback
    * @returns void
    */
-  const handleFail = (fail, isRunCallback = true) => {
+  const handleFail = async (fail, isRunCallback = true) => {
+    const { unflatten } = await import('flat')
+
     let messages = {}
 
     /**
@@ -135,7 +136,7 @@ export const useForm = (opts = {}) => {
      * @param String text
      * @returns String
      */
-    const brackets = text => text.replace(/[[\].]+/g, '.')
+    const brackets = (text) => text.replace(/[[\].]+/g, '.')
 
     if (fail.name === 'ValidationError') {
       if (fail.inner.length !== 0) {

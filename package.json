@@ -1,0 +1,64 @@
+{
+  "name": "@nuxtjs/outfit",
+  "version": "1.0.0",
+  "description": "Outfit - Connection Laravel and Nuxt",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/k0mar12/outfit"
+  },
+  "author": "Vlad Poshvaniuk",
+  "contributors": [
+    "k0mar12 <vladlovedance@gmail.com>"
+  ],
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/module.mjs",
+      "require": "./dist/module.cjs"
+    }
+  },
+  "main": "./dist/module.cjs",
+  "types": "./dist/types.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "nuxt-module-build",
+    "dev": "nuxi dev playground",
+    "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build --stub && nuxi prepare playground",
+    "release": "npm run lint && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "test:watch": "vitest watch"
+  },
+  "dependencies": {
+    "@nuxt/kit": "^3.2.2",
+    "cookie": "^0.5.0",
+    "flat": "^5.0.2",
+    "klona": "^2.0.6",
+    "laravel-echo": "^1.15.0",
+    "lodash-es": "^4.17.21",
+    "set-cookie-parser": "^2.5.1",
+    "socket.io-client": "^4.6.0",
+    "yup": "^1.0.0"
+  },
+  "devDependencies": {
+    "@nuxt/eslint-config": "^0.1.1",
+    "@nuxt/module-builder": "^0.2.1",
+    "@nuxt/schema": "^3.2.2",
+    "@nuxt/test-utils": "^3.2.2",
+    "changelogen": "^0.4.1",
+    "eslint": "^8.34.0",
+    "nuxt": "^3.2.2",
+    "vitest": "^0.28.5"
+  },
+  "keywords": [
+    "outfit",
+    "nuxt",
+    "laravel",
+    "module"
+  ]
+}

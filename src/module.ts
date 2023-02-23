@@ -1,6 +1,22 @@
-import { defineNuxtModule, addPlugin, addImportsDir } from '@nuxt/kit'
-import { fileURLToPath } from 'url'
-import { resolve } from 'path'
+import { defineNuxtModule, addPlugin, createResolver } from '@nuxt/kit'
+
+const { resolve } = createResolver(import.meta.url)
+
+const includeDeps = (nuxt: any, deps: any) => {
+  if (!nuxt.options.vite) {
+    nuxt.options.vite = {}
+  }
+
+  if (!nuxt.options.vite.optimizeDeps) {
+    nuxt.options.vite.optimizeDeps = {}
+  }
+
+  if (!nuxt.options.vite.optimizeDeps.include) {
+    nuxt.options.vite.optimizeDeps.include = []
+  }
+
+  nuxt.options.vite.optimizeDeps.include.push(...deps)
+}
 
 export default defineNuxtModule({
   meta: {
@@ -16,16 +32,23 @@ export default defineNuxtModule({
     serverUrl: null,
     httpInstance: null
   },
+  hooks: {
+    'imports:dirs': (dirs) => {
+      dirs.push(resolve('./runtime/composables'))
+    }
+  },
   setup (options, nuxt) {
-    const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
-
-    nuxt.options.build.transpile.push(runtimeDir)
+    nuxt.options.build.transpile.push(resolve('./runtime'))
     nuxt.options.runtimeConfig.public.outfit = { echo: options.echo, httpInstance: options.httpInstance }
     nuxt.options.runtimeConfig.outfit = { serverUrl: options.serverUrl }
 
-    nuxt.options.build.transpile.push('socket.io-client')
+    includeDeps(nuxt, [
+      'socket.io-client',
+      'flat',
+      'cookie',
+      'set-cookie-parser'
+    ])
 
-    addPlugin(resolve(runtimeDir, 'plugins'))
-    addImportsDir(resolve(runtimeDir, 'composables'))
+    addPlugin(resolve('./runtime/plugins/echo.client'))
   }
 })

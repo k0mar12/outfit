@@ -1,5 +1,7 @@
 import { useRuntimeConfig, useRequestEvent, useRequestHeaders } from '#imports'
 import { appendHeader } from 'h3'
+import { parse, splitCookiesString as split } from 'set-cookie-parser'
+import { serialize } from 'cookie'
 
 export const useSpaHeaders = (additionalHeaders = {}) => {
   if (process.client) {
@@ -21,15 +23,7 @@ export const useSpaHeaders = (additionalHeaders = {}) => {
     headers.referer = `${headers.host}/${event.node.req.originalUrl}`
   }
 
-  const parseCookie = async (cookies) => {
-    const [
-      { parse, splitCookiesString: split },
-      { serialize }
-    ] = await Promise.all([
-      import('set-cookie-parser'),
-      import('cookie')
-    ])
-
+  const parseCookie = (cookies) => {
     return (parse(split(cookies))).map(cookie => serialize(cookie.name, cookie.value, cookie))
   }
 
@@ -42,9 +36,7 @@ export const useSpaHeaders = (additionalHeaders = {}) => {
       const { status, headers } = response
 
       if (goodResponses.includes(status)) {
-        const incomingHeaders = await parseCookie(headers.get('set-cookie'))
-
-        appendHeader(event, 'Set-Cookie', incomingHeaders)
+        appendHeader(event, 'Set-Cookie', parseCookie(headers.get('set-cookie')))
       }
     }
   }

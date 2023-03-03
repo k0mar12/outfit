@@ -1,4 +1,15 @@
 
+## v1.2.0
+
+
+### 🚀 Enhancements
+
+  - Add host option (d2da505)
+
+### ❤️  Contributors
+
+- Vlad Poshvaniuk <vladposhvaniuk@Vlads-MacBook-Pro.local>
+
 ## v1.1.0
 
 

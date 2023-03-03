@@ -1,4 +1,15 @@
 
+## v1.1.0
+
+
+### 🚀 Enhancements
+
+  - Pass object to snack message and pass POJO to laravel/echo (2ecc0cc)
+
+### ❤️  Contributors
+
+- Vlad Poshvaniuk <vladposhvaniuk@Vlads-MacBook-Pro.local>
+
 ## v1.0.18
 
 

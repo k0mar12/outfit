@@ -10,5 +10,10 @@ export default defineNuxtPlugin((nuxtApp) => {
     options.client = io
   }
 
+  if (options.host === null) {
+    const port = window.location.port === '' ? '' : `:${window.location.port}`
+    options.host = `${window.location.host}${port}`
+  }
+
   nuxtApp.provide('echo', new Echo(deepClone(options)))
 })

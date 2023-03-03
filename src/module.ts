@@ -27,7 +27,8 @@ export default defineNuxtModule({
     echo: {
       broadcaster: 'socket.io',
       autoConnect: false,
-      transports: ['websocket']
+      transports: ['websocket'],
+      host: null
     },
     serverUrl: null,
     httpInstance: null

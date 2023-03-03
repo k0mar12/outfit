@@ -149,7 +149,7 @@ export const useForm = (opts = {}) => {
       if (fail.data?.errors !== undefined) {
         messages = fail.data.errors
       } else if (fail.data?.message !== undefined) {
-        snackMessage.value = fail.data?.message
+        snackMessage.value = { message: fail.data?.message, type: 'error' }
       }
     }
 

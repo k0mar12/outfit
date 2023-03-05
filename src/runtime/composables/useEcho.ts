@@ -26,9 +26,13 @@ export const useEcho = () => {
      * @param callback
      */
     connected: (callback) => {
-      $echo.connector.socket.on('connect', () => {
+      if ($echo.connector.socket.connected) {
         Promise.resolve(callback())
-      })
+      } else {
+        $echo.connector.socket.on('connect', () => {
+          Promise.resolve(callback())
+        })
+      }
     },
 
     /**

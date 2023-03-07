@@ -36,6 +36,13 @@ export const useEcho = () => {
     },
 
     /**
+     * Get socket id
+     */
+    getSocketId: () => {
+      return $echo.socketId()
+    },
+
+    /**
      * Connect to the socket
      *
      */

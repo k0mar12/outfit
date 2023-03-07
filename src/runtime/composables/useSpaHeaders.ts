@@ -1,12 +1,19 @@
-import { useRuntimeConfig, useRequestEvent, useRequestHeaders } from '#imports'
+import { useRuntimeConfig, useRequestEvent, useRequestHeaders, useEcho } from '#imports'
 import { appendHeader } from 'h3'
 import { parse, splitCookiesString as split } from 'set-cookie-parser'
 import { serialize } from 'cookie'
 
 export const useSpaHeaders = (additionalHeaders = {}) => {
   if (process.client) {
+    const { getSocketId } = useEcho()
+
     return {
-      headers: additionalHeaders
+      headers: additionalHeaders,
+      async onRequest ({ request, options }) {
+        if (getSocketId() !== undefined) {
+          options.headers['X-Socket-ID'] = getSocketId()
+        }
+      }
     }
   }
 

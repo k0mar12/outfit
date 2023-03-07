@@ -178,12 +178,13 @@ export const useForm = (opts = {}) => {
   /**
    * Make local and then server validation
    *
+   * @param action
    * @returns Promise
    */
-  const validate = () => {
+  const validate = (action) => {
     return opts?.schema
       .validate(deepClone(fields), { abortEarly: false })
-      .then(validated => http(opts?.action, { method: 'POST', body: validated }))
+      .then(validated => http(action ?? opts?.action, { method: 'POST', body: validated }))
       .then(hit => handleSuccess(hit))
       .catch(fail => handleFail(fail))
   }
@@ -193,9 +194,9 @@ export const useForm = (opts = {}) => {
    *
    * @returns void
    */
-  const handleSubmit = async () => {
+  const handleSubmit = async (action = null) => {
     processing()
-    await validate()
+    await validate(action)
     processed()
   }
 

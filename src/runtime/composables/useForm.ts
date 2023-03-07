@@ -194,7 +194,7 @@ export const useForm = (opts = {}) => {
    *
    * @returns void
    */
-  const handleSubmit = async (action = null) => {
+  const handleSubmit = async (event = null, action = null) => {
     processing()
     await validate(action)
     processed()

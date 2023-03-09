@@ -2,7 +2,7 @@ import { useRuntimeConfig, useNuxtApp, useState } from '#imports'
 import { ref, reactive } from 'vue'
 import { klona as deepClone } from 'klona/full'
 import { has, unset } from 'lodash-es'
-import { unflatten } from 'flat'
+import flat from 'flat'
 
 export const useForm = (opts = {}) => {
   const httpInstance = useRuntimeConfig().public.outfit.httpInstance
@@ -123,6 +123,7 @@ export const useForm = (opts = {}) => {
    * @returns void
    */
   const handleFail = (fail, isRunCallback = true) => {
+    const { unflatten } = flat
     let messages = {}
 
     /**

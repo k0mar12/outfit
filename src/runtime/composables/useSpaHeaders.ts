@@ -25,10 +25,10 @@ export const useSpaHeaders = (additionalHeaders = {}) => {
   /**
    * TODO: In future releases should be removed.
    * Nuxt time to time not return referer
+   * Condition: if (!Object.prototype.hasOwnProperty.call(headers, 'referer'))
    */
-  if (!Object.prototype.hasOwnProperty.call(headers, 'referer')) {
-    headers.referer = `${headers.host}/${event.node.req.originalUrl}`
-  }
+
+  headers.referer = `${headers.host}${event.node.req.originalUrl}`
 
   const parseCookie = (cookies) => {
     return (parse(split(cookies))).map(cookie => serialize(cookie.name, cookie.value, cookie))

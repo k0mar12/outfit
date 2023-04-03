@@ -1,4 +1,4 @@
-import { useRuntimeConfig, useNuxtApp, useState } from '#imports'
+import { useRuntimeConfig, useNuxtApp } from '#imports'
 import { ref, reactive } from 'vue'
 import { klona as deepClone } from 'klona/full'
 import { has, unset } from 'lodash-es'
@@ -7,7 +7,6 @@ import flat from 'flat'
 export const useForm = (opts = {}) => {
   const httpInstance = useRuntimeConfig().public.outfit.httpInstance
   const http = useNuxtApp()?.[httpInstance] ?? $fetch
-  const snackMessage = useState('snackMessage')
 
   const fields = reactive(deepClone(opts?.initialValues))
   const isPending = ref(false)
@@ -149,8 +148,6 @@ export const useForm = (opts = {}) => {
     } else if (fail.name === 'FetchError') {
       if (fail.data?.errors !== undefined) {
         messages = fail.data.errors
-      } else if (fail.data?.message !== undefined) {
-        snackMessage.value = { message: fail.data?.message, type: 'error' }
       }
     }
 

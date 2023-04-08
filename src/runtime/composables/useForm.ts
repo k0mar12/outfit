@@ -182,7 +182,7 @@ export const useForm = (opts = {}) => {
    */
   const validate = (action) => {
     return opts?.schema
-      .validate(deepClone(fields), { abortEarly: false })
+      .validate(deepClone(fields), opts?.validationOptions ?? { abortEarly: false })
       .then(validated => http(action ?? opts?.action, { method: 'POST', body: validated }))
       .then(hit => handleSuccess(hit))
       .catch(fail => handleFail(fail))

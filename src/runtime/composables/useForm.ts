@@ -5,6 +5,7 @@ import { has, unset } from 'lodash-es'
 import flat from 'flat'
 
 export const useForm = (opts = {}) => {
+  const { schema } = opts
   const httpInstance = useRuntimeConfig().public.outfit.httpInstance
   const http = useNuxtApp()?.[httpInstance] ?? $fetch
 
@@ -208,6 +209,7 @@ export const useForm = (opts = {}) => {
     clearError,
     reset,
     onSuccess,
-    onFail
+    onFail,
+    schema
   }
 }

@@ -177,13 +177,13 @@ export const useForm = (opts = {}) => {
   /**
    * Make local and then server validation
    *
-   * @param action
+   * @param params
    * @returns Promise
    */
-  const validate = (action) => {
+  const validate = (params) => {
     return opts?.schema
-      .validate(deepClone(fields), opts?.validationOptions ?? { abortEarly: false })
-      .then(validated => http(action ?? opts?.action, { method: 'POST', body: validated }))
+      .validate(deepClone(fields), params?.validationOptions ?? { abortEarly: false })
+      .then(validated => http(params?.action ?? opts?.action, { method: 'POST', body: validated }))
       .then(hit => handleSuccess(hit))
       .catch(fail => handleFail(fail))
   }
@@ -191,11 +191,13 @@ export const useForm = (opts = {}) => {
   /**
    * Submit form
    *
+   * @param event
+   * @param params
    * @returns void
    */
-  const handleSubmit = async (event = null, action = null) => {
+  const handleSubmit = async (event = null, params) => {
     processing()
-    await validate(action)
+    await validate(params)
     processed()
   }
 

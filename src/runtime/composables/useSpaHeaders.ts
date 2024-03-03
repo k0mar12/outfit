@@ -1,5 +1,5 @@
 import { useRuntimeConfig, useRequestEvent, useRequestHeaders, useEcho } from '#imports'
-import { appendHeader } from 'h3'
+import { setResponseHeaders } from 'h3'
 import { parse, splitCookiesString as split } from 'set-cookie-parser'
 import { serialize } from 'cookie'
 
@@ -43,7 +43,7 @@ export const useSpaHeaders = (additionalHeaders = {}) => {
       const { status, headers } = response
 
       if (goodResponses.includes(status)) {
-        appendHeader(event, 'Set-Cookie', parseCookie(headers.get('set-cookie')))
+        setResponseHeaders(event, { 'Set-Cookie': parseCookie(headers.get('set-cookie')) })
       }
     }
   }

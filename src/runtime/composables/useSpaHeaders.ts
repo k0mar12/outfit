@@ -1,7 +1,4 @@
 import { useRuntimeConfig, useRequestEvent, useRequestHeaders, useEcho } from '#imports'
-import { setResponseHeaders } from 'h3'
-import { parse, splitCookiesString as split } from 'set-cookie-parser'
-import { serialize } from 'cookie'
 
 export const useSpaHeaders = (additionalHeaders = {}) => {
   if (process.client) {
@@ -9,7 +6,7 @@ export const useSpaHeaders = (additionalHeaders = {}) => {
 
     return {
       headers: additionalHeaders,
-      async onRequest ({ request, options }) {
+      async onRequest ({ options }) {
         if (getSocketId() !== undefined) {
           options.headers['X-Socket-ID'] = getSocketId()
         }
@@ -20,7 +17,6 @@ export const useSpaHeaders = (additionalHeaders = {}) => {
   const serverUrl = useRuntimeConfig().outfit.serverUrl
   const event = useRequestEvent()
   const headers = useRequestHeaders(['cookie', 'referer', 'host'])
-  const goodResponses = [200, 201, 202, 203, 204, 205, 206, 207, 208, 226]
 
   /**
    * TODO: In future releases should be removed.
@@ -30,21 +26,10 @@ export const useSpaHeaders = (additionalHeaders = {}) => {
 
   headers.referer = `${headers.host}${event.node.req.originalUrl}`
 
-  const parseCookie = (cookies) => {
-    return (parse(split(cookies))).map(cookie => serialize(cookie.name, cookie.value, cookie))
-  }
-
   const serverOptions = {
     headers: {
       ...additionalHeaders,
       ...headers
-    },
-    async onResponse ({ response }) {
-      const { status, headers } = response
-
-      if (goodResponses.includes(status)) {
-        setResponseHeaders(event, { 'Set-Cookie': parseCookie(headers.get('set-cookie')) })
-      }
     }
   }
 

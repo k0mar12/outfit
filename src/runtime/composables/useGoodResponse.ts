@@ -16,7 +16,7 @@ export const useGoodResponse = () => {
   }
 
   const setCookieFromResponse = ({ status, headers }) => {
-    if (isGoodResponse(status)) {
+    if (isGoodResponse(status) && !process.client) {
       setResponseHeaders(event, { 'Set-Cookie': parseCookie(headers.get('set-cookie')) })
     }
   }

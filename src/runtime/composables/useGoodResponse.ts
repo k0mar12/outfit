@@ -9,17 +9,19 @@ export const useGoodResponse = () => {
 
   const goodCodes = readonly([200, 201, 202, 203, 204, 205, 206, 207, 208, 226])
 
+  const isGoodResponse = (status) => goodCodes.includes(status)
+
   const parseCookie = (cookies) => {
     return (parse(split(cookies))).map(cookie => serialize(cookie.name, cookie.value, cookie))
   }
 
   const setCookieFromResponse = ({ status, headers }) => {
-    if (goodCodes.includes(status)) {
+    if (isGoodResponse(status)) {
       setResponseHeaders(event, { 'Set-Cookie': parseCookie(headers.get('set-cookie')) })
     }
   }
 
   return {
-    goodCodes, setCookieFromResponse
+    goodCodes, setCookieFromResponse, isGoodResponse
   }
 }

@@ -155,7 +155,7 @@ export const useForm = (opts = {}) => {
     setErrors(unflatten(messages))
 
     if (_onFail && isRunCallback) {
-      Promise.resolve(_onFail(errors))
+      Promise.resolve(_onFail(errors, fail.status))
     }
   }
 

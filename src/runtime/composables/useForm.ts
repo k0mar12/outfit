@@ -175,6 +175,29 @@ export const useForm = (opts = {}) => {
   }
 
   /**
+   * Create request to server
+   *
+   * @param params
+   * @param validated
+   * @returns
+   */
+  const makeRequest = (params, validated) => {
+    let body = validated
+
+    if (otps?.isFormData) {
+      const formData = new FormData()
+
+      for (const [key, value] of Object.entries(body)) {
+        formData.append(key, typeof value === 'object' ? JSON.stringify(value) : value)
+      }
+
+      body = formData
+    }
+
+    return http(params?.action ?? opts?.action, { method: opts?.method ?? 'POST', body })
+  }
+
+  /**
    * Make local and then server validation
    *
    * @param params
@@ -183,7 +206,7 @@ export const useForm = (opts = {}) => {
   const validate = (params) => {
     return opts?.schema
       .validate(deepClone(fields), params?.validationOptions ?? { abortEarly: false })
-      .then(validated => http(params?.action ?? opts?.action, { method: opts?.method ?? 'POST', body: validated }))
+      .then(validated => makeRequest(params, validated))
       .then(hit => handleSuccess(hit))
       .catch(fail => handleFail(fail))
   }

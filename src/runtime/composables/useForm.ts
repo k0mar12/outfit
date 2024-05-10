@@ -182,19 +182,19 @@ export const useForm = (opts = {}) => {
    * @returns
    */
   const makeRequest = (params, validated) => {
-    let body = validated
+    let fields = validated
 
     if (otps?.isFormData) {
       const formData = new FormData()
 
-      for (const [key, value] of Object.entries(body)) {
+      for (const [key, value] of Object.entries(fields)) {
         formData.append(key, typeof value === 'object' ? JSON.stringify(value) : value)
       }
 
-      body = formData
+      fields = formData
     }
 
-    return http(params?.action ?? opts?.action, { method: opts?.method ?? 'POST', body })
+    return http(params?.action ?? opts?.action, { method: opts?.method ?? 'POST', body: fields })
   }
 
   /**

@@ -167,8 +167,13 @@ export const useForm = (opts = {}) => {
    * @returns void
    */
   const handleSuccess = (hit) => {
+    const shouldReset = opts?.shouldReset ?? true
+
     clearErrors()
-    reset()
+
+    if (shouldReset) {
+      reset()
+    }
 
     if (_onSuccess) {
       Promise.resolve(_onSuccess(hit))

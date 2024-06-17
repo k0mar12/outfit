@@ -54,8 +54,8 @@ export const useForm = (opts = {}) => {
    * @param values
    * @returns void
    */
-  const reset = (values = null) => {
-    Object.assign(fields, deepClone(values ?? opts?.initialValues))
+  const reset = () => {
+    Object.assign(fields, opts?.initialValues)
   }
 
   /**

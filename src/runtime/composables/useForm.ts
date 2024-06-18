@@ -181,6 +181,44 @@ export const useForm = (opts = {}) => {
   }
 
   /**
+   * Transform object to form data
+   *
+   * @param fields
+   * @param form
+   * @param namespace
+   * @returns
+   */
+  const toFormData = (fields, form = null, namespace = null) => {
+    const formData = form || new FormData()
+
+    for (let property in fields) {
+      if (!fields.hasOwnProperty(property)) {
+        continue
+      }
+
+      let formKey = namespace ? `${namespace}[${property}]` : property
+
+      if (fields[property] instanceof FileList || Array.isArray(fields[property])) {
+        fields[property].forEach((element, index) => {
+          if (element instanceof File) {
+            formData.append(`${formKey}[${index}]`, element)
+          } else if (typeof element === 'object') {
+            toFormData(element, formData, `${formKey}[${index}]`)
+          } else {
+            formData.append(`${formKey}[${index}]`, element)
+          }
+        })
+      } else if (typeof fields[property] === 'object' && !(fields[property] instanceof File)) {
+        toFormData(fields[property], formData, formKey)
+      } else {
+        formData.append(formKey, fields[property])
+      }
+    }
+
+    return formData
+  }
+
+  /**
    * Create request to server
    *
    * @param params
@@ -191,23 +229,7 @@ export const useForm = (opts = {}) => {
     let fields = validated
 
     if (opts?.isFormData) {
-      const formData = new FormData()
-
-      for (const [key, value] of Object.entries(fields)) {
-        if (value instanceof FileList) {
-          for (const file of value) {
-            formData.append(`${key}[]`, file)
-          }
-        } else if (value instanceof File) {
-          formData.append(key, value)
-        } else if (typeof value === 'object') {
-          formData.append(key, JSON.stringify(value))
-        } else {
-          formData.append(key, value)
-        }
-      }
-
-      fields = formData
+      fields = toFormData(fields)
     }
 
     return http(params?.action ?? opts?.action, { method: opts?.method ?? 'POST', body: fields })

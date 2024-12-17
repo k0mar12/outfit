@@ -54,8 +54,8 @@ export const useForm = (opts = {}) => {
    * @param values
    * @returns void
    */
-  const reset = () => {
-    Object.assign(fields, opts?.initialValues)
+  const reset = (values = null) => {
+    Object.assign(fields, values ?? opts?.initialValues)
   }
 
   /**

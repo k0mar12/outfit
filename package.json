@@ -1,6 +1,6 @@
 {
   "name": "nuxt-outfit",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "description": "Outfit - Connection Laravel and Nuxt",
   "repository": {
     "type": "git",
@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@nuxt/kit": "^3.2.2",
-    "cookie": "^0.5.0",
+    "cookie": "^1.0.2",
     "flat": "^5.0.2",
     "klona": "^2.0.6",
     "laravel-echo": "^1.15.0",

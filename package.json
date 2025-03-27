@@ -1,10 +1,10 @@
 {
   "name": "nuxt-outfit",
-  "version": "1.6.3",
+  "version": "1.6.4",
   "description": "Outfit - Connection Laravel and Nuxt",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/k0mar12/outfit"
+    "url": "git+https://github.com/k0mar12/outfit.git"
   },
   "homepage": "https://github.com/k0mar12/outfit",
   "author": "Vlad Poshvaniuk",

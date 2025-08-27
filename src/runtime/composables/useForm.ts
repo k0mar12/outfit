@@ -256,7 +256,7 @@ export const useForm = (opts = {}) => {
    * @param params
    * @returns void
    */
-  const handleSubmit = async (event = null, params) => {
+  const handleSubmit = async (event = null, params = null) => {
     processing()
     await validate(params)
     processed()

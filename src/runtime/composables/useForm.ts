@@ -2,7 +2,7 @@ import { useRuntimeConfig, useNuxtApp } from '#imports'
 import { ref, reactive } from 'vue'
 import { klona as deepClone } from 'klona/full'
 import { has, unset } from 'lodash-es'
-import flat from 'flat'
+import { unflatten } from 'flat'
 
 export const useForm = (opts = {}) => {
   const { schema } = opts
@@ -124,7 +124,6 @@ export const useForm = (opts = {}) => {
    * @returns void
    */
   const handleFail = (fail, isRunCallback = true) => {
-    const { unflatten } = flat
     let messages = {}
 
     /**

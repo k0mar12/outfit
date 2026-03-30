@@ -1,4 +1,15 @@
 
+## v1.9.1
+
+
+### 🩹 Fixes
+
+  - Resolving of http instance (4ebd069)
+
+### ❤️  Contributors
+
+- K0mar12 <vlaldovedance@gmail.com>
+
 ## v1.9.0
 
 

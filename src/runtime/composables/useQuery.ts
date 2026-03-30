@@ -1,3 +1,5 @@
+import { useRoute } from '#imports'
+
 export const useQuery = () => {
   const { query } = useRoute()
 

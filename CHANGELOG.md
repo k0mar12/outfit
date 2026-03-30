@@ -1,4 +1,15 @@
 
+## v1.10.0
+
+
+### 🚀 Enhancements
+
+  - Add default query for data fetching (da8ea97)
+
+### ❤️  Contributors
+
+- K0mar12 <vlaldovedance@gmail.com>
+
 ## v1.9.1
 
 

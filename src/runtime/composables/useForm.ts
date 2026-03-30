@@ -52,7 +52,6 @@ export const useForm = (opts = {}) => {
    * Reset form values
    *
    * @param values
-   * @returns void
    */
   const reset = (values = null) => {
     Object.assign(fields, values ?? opts?.initialValues)
@@ -62,7 +61,7 @@ export const useForm = (opts = {}) => {
    * For nested object
    * Select first object in array and repeat according to initial value
    *
-   * @returns void
+   * @param property
    */
   const repeatArray = (property) => {
     if (Array.isArray(fields[property])) {
@@ -89,8 +88,7 @@ export const useForm = (opts = {}) => {
   /**
    * Set array errors
    *
-   * @param errors
-   * @returns
+   * @param exceptions
    */
   const setErrors = (exceptions) => {
     errors.value = exceptions
@@ -99,7 +97,6 @@ export const useForm = (opts = {}) => {
   /**
    * Delete all errors
    *
-   * @returns void
    */
   const clearErrors = () => {
     errors.value = {}
@@ -119,9 +116,8 @@ export const useForm = (opts = {}) => {
   /**
    * Collect errors from yup and server schema`s
    *
-   * @param errors
+   * @param fail
    * @param isRunCallback
-   * @returns void
    */
   const handleFail = (fail, isRunCallback = true) => {
     let messages = {}
@@ -133,20 +129,21 @@ export const useForm = (opts = {}) => {
      * But in laravel same error will looks like this = error.0.name
      * So we need to convert it to the equal result
      *
-     * @param String text
-     * @returns String
+     * @param text
      */
-    const brackets = (text) => text.replace(/[[\].]+/g, '.')
+    const brackets = text => text.replace(/[[\].]+/g, '.')
 
     if (fail.name === 'ValidationError') {
       if (fail.inner.length !== 0) {
         for (const instance of fail.inner) {
           messages[brackets(instance.path)] = instance.errors.map(item => brackets(item))
         }
-      } else {
+      }
+      else {
         messages[brackets(fail.path)] = brackets(fail.message)
       }
-    } else if (fail.name === 'FetchError') {
+    }
+    else if (fail.name === 'FetchError') {
       if (fail.data?.errors !== undefined) {
         messages = fail.data.errors
       }
@@ -163,7 +160,6 @@ export const useForm = (opts = {}) => {
    * Collect success response
    *
    * @param hit
-   * @returns void
    */
   const handleSuccess = (hit) => {
     const shouldReset = opts?.shouldReset ?? true
@@ -185,7 +181,7 @@ export const useForm = (opts = {}) => {
    * @param fields
    * @param form
    * @param namespace
-   * @returns
+   * @returns FormData
    */
   const toFormData = (fields, form = null, namespace = null) => {
     const formData = form || new FormData()
@@ -201,15 +197,19 @@ export const useForm = (opts = {}) => {
         fields[property].forEach((element, index) => {
           if (element instanceof File) {
             formData.append(`${formKey}[${index}]`, element)
-          } else if (typeof element === 'object') {
+          }
+          else if (typeof element === 'object') {
             toFormData(element, formData, `${formKey}[${index}]`)
-          } else {
+          }
+          else {
             formData.append(`${formKey}[${index}]`, element)
           }
         })
-      } else if (typeof fields[property] === 'object' && !(fields[property] instanceof File)) {
+      }
+      else if (typeof fields[property] === 'object' && !(fields[property] instanceof File)) {
         toFormData(fields[property], formData, formKey)
-      } else {
+      }
+      else {
         formData.append(formKey, fields[property])
       }
     }
@@ -222,7 +222,7 @@ export const useForm = (opts = {}) => {
    *
    * @param params
    * @param validated
-   * @returns
+   * @returns any
    */
   const makeRequest = (params, validated) => {
     let fields = validated
@@ -273,6 +273,6 @@ export const useForm = (opts = {}) => {
     reset,
     onSuccess,
     onFail,
-    schema
+    schema,
   }
 }

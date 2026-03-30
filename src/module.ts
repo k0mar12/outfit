@@ -2,7 +2,7 @@ import { defineNuxtModule, addPlugin, createResolver } from '@nuxt/kit'
 
 const { resolve } = createResolver(import.meta.url)
 
-const includeDeps = (nuxt: any, deps: any) => {
+const includeDeps = (nuxt, deps) => {
   if (!nuxt.options.vite) {
     nuxt.options.vite = {}
   }
@@ -21,24 +21,24 @@ const includeDeps = (nuxt: any, deps: any) => {
 export default defineNuxtModule({
   meta: {
     name: '@nuxt/outfit',
-    configKey: 'outfit'
+    configKey: 'outfit',
   },
   defaults: {
     echo: {
       broadcaster: 'socket.io',
       autoConnect: false,
       transports: ['websocket'],
-      host: null
+      host: null,
     },
     serverUrl: null,
-    httpInstance: null
+    httpInstance: null,
   },
   hooks: {
     'imports:dirs': (dirs) => {
       dirs.push(resolve('./runtime/composables'))
-    }
+    },
   },
-  setup (options, nuxt) {
+  setup(options, nuxt) {
     nuxt.options.build.transpile.push(resolve('./runtime'))
     nuxt.options.runtimeConfig.public.outfit = { echo: options.echo, httpInstance: options.httpInstance }
     nuxt.options.runtimeConfig.outfit = { serverUrl: options.serverUrl }
@@ -47,9 +47,9 @@ export default defineNuxtModule({
       'socket.io-client',
       'flat',
       'cookie',
-      'set-cookie-parser'
+      'set-cookie-parser',
     ])
 
     addPlugin(resolve('./runtime/plugins/echo.client'))
-  }
+  },
 })

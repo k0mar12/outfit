@@ -1,9 +1,8 @@
 export const useFile = () => {
-
   /**
    *
    * @param base64
-   * @returns
+   * @returns TArrayBuffer
    */
   const createArrayBufferFromBase64 = (base64) => {
     const binaryString = atob(base64)
@@ -11,7 +10,7 @@ export const useFile = () => {
     const bytes = new Uint8Array(len)
 
     for (let i = 0; i < len; i++) {
-        bytes[i] = binaryString.charCodeAt(i)
+      bytes[i] = binaryString.charCodeAt(i)
     }
 
     return bytes.buffer
@@ -21,8 +20,7 @@ export const useFile = () => {
    *
    * @param base64
    * @param name
-   * @param type
-   * @returns
+   * @returns File
    */
   const createFileFromBase64 = (base64, name) => {
     return new File([new Blob([createArrayBufferFromBase64(base64)])], name)
@@ -30,6 +28,6 @@ export const useFile = () => {
 
   return {
     createArrayBufferFromBase64,
-    createFileFromBase64
+    createFileFromBase64,
   }
 }

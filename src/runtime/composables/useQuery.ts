@@ -4,11 +4,13 @@ export const useQuery = () => {
   const { query } = useRoute()
 
   const convertValue = (value) => {
-    if (!isNaN(value)) {
-      return parseFloat(value)
-    } else if (value === 'true' || value === 'false') {
+    if (!Number.isNaN(value)) {
+      return Number.parseFloat(value)
+    }
+    else if (value === 'true' || value === 'false') {
       return value === 'true'
-    } else if (value.includes(',')) {
+    }
+    else if (value.includes(',')) {
       return value.split(',').map(item => convertValue(item.trim()))
     }
 
@@ -22,7 +24,8 @@ export const useQuery = () => {
 
       if (match) {
         params.filters[match[1]] = value
-      } else {
+      }
+      else {
         params.other[key] = value
       }
 
@@ -31,6 +34,6 @@ export const useQuery = () => {
   }
 
   return {
-    getBindingQueryValues
+    getBindingQueryValues,
   }
 }

@@ -20,12 +20,12 @@ export const useDataFetch = async (name, path, options = {}) => {
    * @return Number
    */
   const currentPage = computed({
-    get () {
+    get() {
       return other.page
     },
-    set (value) {
+    set(value) {
       other.page = value
-    }
+    },
   })
 
   /**
@@ -56,7 +56,7 @@ export const useDataFetch = async (name, path, options = {}) => {
 
   const { data, refresh, pending } = await useAsyncData(
     name,
-    (_nuxtApp, { signal }) => http(path, { params: validQuery.value }, signal)
+    (_nuxtApp, { signal }) => http(path, { params: validQuery.value }, signal),
   )
 
   /**
@@ -122,6 +122,6 @@ export const useDataFetch = async (name, path, options = {}) => {
     changePage,
     changePerPage,
     filter,
-    clearFilter
+    clearFilter,
   }
 }

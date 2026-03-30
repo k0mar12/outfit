@@ -14,7 +14,7 @@ export const useEcho = () => {
     Object.keys(events).forEach((key) => {
       room.listen(
         key === 'notification' ? notificationNamespace : key,
-        payload => events[key](payload)
+        payload => events[key](payload),
       )
     })
   }
@@ -28,7 +28,8 @@ export const useEcho = () => {
     connected: (callback) => {
       if ($echo.connector.socket.connected) {
         Promise.resolve(callback())
-      } else {
+      }
+      else {
         $echo.connector.socket.on('connect', () => {
           Promise.resolve(callback())
         })
@@ -95,6 +96,6 @@ export const useEcho = () => {
      */
     leave: (channel) => {
       $echo.leaveChannel(channel)
-    }
+    },
   }
 }

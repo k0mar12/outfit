@@ -1,16 +1,16 @@
 import { useRuntimeConfig, useRequestEvent, useRequestHeaders, useEcho } from '#imports'
 
 export const useSpaHeaders = (additionalHeaders = {}) => {
-  if (process.client) {
+  if (import.meta.client) {
     const { getSocketId } = useEcho()
 
     return {
       headers: additionalHeaders,
-      async onRequest ({ options }) {
+      async onRequest({ options }) {
         if (getSocketId() !== undefined) {
           options.headers['X-Socket-ID'] = getSocketId()
         }
-      }
+      },
     }
   }
 
@@ -29,8 +29,8 @@ export const useSpaHeaders = (additionalHeaders = {}) => {
   const serverOptions = {
     headers: {
       ...additionalHeaders,
-      ...headers
-    }
+      ...headers,
+    },
   }
 
   if (serverUrl) {

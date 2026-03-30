@@ -24,6 +24,6 @@ export const useDetectOutsideClick = (component, callback) => {
   })
 
   return {
-    listener
+    listener,
   }
 }

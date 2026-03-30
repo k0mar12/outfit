@@ -1,4 +1,6 @@
 export default defineNuxtConfig({
   modules: ['../src/module'],
-  outfit: {}
+  devtools: { enabled: true },
+  compatibilityDate: 'latest',
+  outfit: {},
 })

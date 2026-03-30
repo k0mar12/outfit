@@ -1,4 +1,14 @@
 {
   "private": true,
-  "name": "outfit-playground"
+  "name": "my-module-playground",
+  "type": "module",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "my-module": "latest",
+    "nuxt": "^4.4.2"
+  }
 }

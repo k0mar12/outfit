@@ -48,12 +48,16 @@ export const useDataFetch = async (name, path, options = {}) => {
    *
    * @return Object
    */
-  const validQuery = computed(() => ({ ...other, ...preparedFilters.value }))
-
-  const { data, refresh, pending } = await useAsyncData(name, () => http(path, {
-    query: { ...validQuery.value, ...(options?.query ?? {}) },
-    ...(options?.fetch ?? {})
+  const validQuery = computed(() => ({
+    ...(options?.params ?? {}),
+    ...other,
+    ...preparedFilters.value,
   }))
+
+  const { data, refresh, pending } = await useAsyncData(
+    name,
+    (_nuxtApp, { signal }) => http(path, { params: validQuery.value }, signal)
+  )
 
   /**
    * Make the request with builded query

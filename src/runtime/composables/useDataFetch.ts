@@ -1,12 +1,14 @@
-import { useRouter, useNuxtApp, useQuery, useAsyncData } from '#imports'
+import { useRouter, useNuxtApp, useQuery, useAsyncData, useRuntimeConfig } from '#imports'
 import { reactive, computed, watch } from 'vue'
 import { klona as deepClone } from 'klona/full'
 import { flatten } from 'flat'
 
 export const useDataFetch = async (name, path, options = {}) => {
-  const { $spaFetch } = useNuxtApp()
   const { push } = useRouter()
   const { getBindingQueryValues } = useQuery()
+  const httpInstance = useRuntimeConfig().public.outfit.httpInstance
+  const http = useNuxtApp()?.[httpInstance] ?? $fetch
+
   const { filters: filtersQuery, other: otherQuery } = getBindingQueryValues()
 
   const filters = reactive({ ...deepClone(options?.filters), ...(options?.isSilent ? {} : filtersQuery) })
@@ -48,7 +50,7 @@ export const useDataFetch = async (name, path, options = {}) => {
    */
   const validQuery = computed(() => ({ ...other, ...preparedFilters.value }))
 
-  const { data, refresh, pending } = await useAsyncData(name, () => $spaFetch(path, {
+  const { data, refresh, pending } = await useAsyncData(name, () => http(path, {
     query: validQuery.value,
     ...(options?.fetch ?? {})
   }))

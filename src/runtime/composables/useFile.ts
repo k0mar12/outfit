@@ -24,7 +24,7 @@ export const useFile = () => {
    * @param type
    * @returns
    */
-  const createFileFromBase64 = (base64, name, type) => {
+  const createFileFromBase64 = (base64, name) => {
     return new File([new Blob([createArrayBufferFromBase64(base64)])], name)
   }
 

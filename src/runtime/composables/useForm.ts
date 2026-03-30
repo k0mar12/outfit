@@ -190,12 +190,12 @@ export const useForm = (opts = {}) => {
   const toFormData = (fields, form = null, namespace = null) => {
     const formData = form || new FormData()
 
-    for (let property in fields) {
-      if (!fields.hasOwnProperty(property)) {
+    for (const property in fields) {
+      if (!Object.prototype.hasOwnProperty.call(fields, property)) {
         continue
       }
 
-      let formKey = namespace ? `${namespace}[${property}]` : property
+      const formKey = namespace ? `${namespace}[${property}]` : property
 
       if (fields[property] instanceof FileList || Array.isArray(fields[property])) {
         fields[property].forEach((element, index) => {
@@ -255,6 +255,7 @@ export const useForm = (opts = {}) => {
    * @param params
    * @returns void
    */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleSubmit = async (event = null, params = null) => {
     processing()
     await validate(params)
